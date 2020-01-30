@@ -55,10 +55,28 @@ const pAequorFactory = (specimenNum, dna) => {
     willLikelySurvive() {
       const cOrG = this.dna.filter(el => el === "C" || el === "G");
       return cOrG.length / this.dna.length >= 0.6;
-    }
+    },
+
+    complimentStrand() {
+      const newStrand = [];
+      for (let i = 0; i < this.dna.length; i++) {
+        if (this.dna[i] === 'A') {
+          newStrand.push('T');
+        } else if (this.dna[i] === 'T') {
+          newStrand.push('A');
+        } else if (this.dna[i] === 'C') {
+          newStrand.push('G');
+        } else {
+          newStrand.push('C');
+        }
+      };
+      return newStrand;
+    },
   }
 };
 
+
+// Makes an array of 30 instances od organisms that will likely survive:
 const survivors = [];
 let id = 1;
 
@@ -70,18 +88,21 @@ while (survivors.length < 30) {
   id++;
 }
 
-console.log(survivors);
+//console.log(survivors);
 
+// Uncomment to check how everything works:
 /*
 const first = pAequorFactory(1, mockUpStrand());
+console.log('Fisrt DNA strand:')
 console.log(first.dna);
 first.mutate();
+console.log('First DNA strand after one mutation:')
 console.log(first.dna);
+console.log('Complimentary strand for previous DNA strand:')
+console.log(first.complimentStrand());
 
 const second = pAequorFactory(2, mockUpStrand());
+console.log('Second DNA strand:')
 console.log(second.dna);
-
 first.compadeDNA(second);
-console.log(first.willLikelySurvive());
-console.log(second.willLikelySurvive());
 */
